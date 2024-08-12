@@ -16,7 +16,11 @@ function Form({addItem}) {
 
     const submitHandling = (e)=>{
         e.preventDefault();
+        if(!formData.item) return;
+        if(!formData.num) return;
+        
         addItem(formData);
+        setFormData({ num : 0, item : '',})
     }
 
 
