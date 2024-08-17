@@ -1,28 +1,13 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import List from './List';
 import Stats from './Stats';
 import Form from './Form';
 
 import { v4 as uuid} from 'uuid';
 
-const trialData = [
-    {
-        id : uuid(),
-        num : 1,
-        item : 'Brush',
-        packed : true
-    },
-    {
-        id : uuid(),
-        num : 1,
-        item : 'Toothpaste',
-        packed : false
-    },
-
-]
 
 function PackingList() {
-    const [data, setData] = useState(trialData)
+    const [data, setData] = useState([])
 
     const addItem = (item)=>{
         setData(currItem=>(
@@ -46,6 +31,11 @@ function PackingList() {
             })
         ))
     }
+
+    const ClearList = ()=>{
+        const confirm = window.confirm('Are you sure you want to delete the items?')
+        if(confirm) setData([]);
+    }
     
 
     const deleteItem = (id)=>{
@@ -55,10 +45,11 @@ function PackingList() {
     }
 
 
+
     return (
         <>
         <Form addItem={addItem}/>
-        <List data={data} remove={deleteItem} packed={NotifyPacked}/>
+        <List data={data} remove={deleteItem} packed={NotifyPacked} ClearList={ClearList}/>
         <Stats data={data}/>
         </>
     )
